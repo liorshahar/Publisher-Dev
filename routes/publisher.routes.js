@@ -1,9 +1,8 @@
 var express          = require('express'),
     router           = express.Router(),
     mongoos          = require('mongoose'),
-    publisherModel   = require('../models/publisher.model'),
-    companyModel     = require('../models/company.model'),
-    productModel     = require('../models/product.model');       
+    publisherModel   = require('../models/publisher.model');
+    bookModel        = require('../models/book.model');   
 
 /* Handle incoming GET / POST publisher request - modular route*/
     
@@ -17,7 +16,7 @@ router.get('/' , (req , res)=>{
     });
 });
 
-router.get('/getAll' , (req , res)=>{
+router.get('/getAllPublishers' , (req , res)=>{
     console.log('Get All publishers');
     publisherModel.find({} , (err , publisher)=>{
         if(err){
@@ -40,6 +39,24 @@ router.post('/' , (req , res)=>{
         res.status(200).send(publisher);
     });
 });
+
+/* @Nola*/
+router.get('/getPublisherBooks/:name' , (req , res)=>{
+    console.log('Get All Publisher Books');
+
+    publisherModel.findOne({firstName: req.params.name})
+    .then((publisher)=> {
+          console.log(publisher.books)
+          bookModel.find({_id : {$in: publisher.books}})
+          .then(books =>{
+                console.log(books);
+                res.status(200).send(books);
+            });
+        }).catch((err)=>{
+           res.status(500).send("There was problem find publisher in the database."); 
+        });
+    });
+
 
 
 module.exports = router;

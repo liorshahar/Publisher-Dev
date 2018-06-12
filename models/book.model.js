@@ -3,6 +3,9 @@ var Schema = mongoose.Schema;
 /* Create and exports book schema*/
 
 var BookSchema = mongoose.Schema({
+    _id:{
+        type:Number
+    },
     name: {
         type: 'String'
     },
