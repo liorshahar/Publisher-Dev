@@ -24,7 +24,7 @@ router.get('/' , (req , res)=>{
 });*/
 
 router.get('/getAll' , (req , res)=>{
-    console.log('Get All publishers');
+    console.log('Get All Books');
     bookModel.find({} , (err , publisher)=>{
         if(err){
             return res.status(500).send("there was problem finding the candidates");
