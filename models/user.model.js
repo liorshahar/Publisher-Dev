@@ -11,6 +11,8 @@ var User = new Schema({
     goals: [
         {description: String , target: Number , current: Number}
     ],
+    followers: [Number],
+    following: [Number],
     borrowd_books: [Number],
     unliked_books:[Number],
     recently_finished:[Number],

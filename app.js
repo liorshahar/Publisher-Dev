@@ -2,9 +2,9 @@ var express         = require('express'),
     app             = express(),
     bodyParser      = require('body-parser'),
     db              = require('./db/db.connection'),
-    bookRoutes = require('./routes/book.routes'),
+    bookRoutes      = require('./routes/book.routes'),
     publisherRoutes = require('./routes/publisher.routes');
-    userRoutes = require('./routes/user.routes');
+    userRoutes      = require('./routes/user.routes');
     
 /* The app module , middleware and route configuration*/
 

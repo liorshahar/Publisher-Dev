@@ -33,6 +33,7 @@ router.get('/userByID/:id' , (req , res)=>{
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
+
 /* Update categories that user like*/
 router.post('/updateProfileBooksCategoriesAdd' , (req , res)=>{
     console.log('POST request: /updateProfileBooksCategories');
@@ -44,7 +45,8 @@ router.post('/updateProfileBooksCategoriesAdd' , (req , res)=>{
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
-/* Remove Categories thet user like*/
+
+/* Remove Categories thet user unlike*/
 router.post('/updateProfileBooksCategoriesRemove' , (req , res)=>{
     console.log('POST request: /updateProfileBooksCategoriesRemove');
     var user   = req.body._id;
@@ -55,6 +57,7 @@ router.post('/updateProfileBooksCategoriesRemove' , (req , res)=>{
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
+
 /* Borrow new Book*/
 router.post('/borrowNewBook' , (req ,res)=>{
     var user   = req.body._id;
@@ -63,6 +66,19 @@ router.post('/borrowNewBook' , (req ,res)=>{
     userModel.findByIdAndUpdate({_id: user}, {$addToSet: { categories: addCat}}, { 'new': true})
     .then(()=> res.status(200).json({update : success}))
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
-
 });
+
+/* Get followers*/
+
+/* Add Followers*/
+
+/* Get Following*/
+
+/* Add book to wishlist*/
+
+/* Get wishlist*/
+
+/* Add goals*/
+
+
 module.exports = router;

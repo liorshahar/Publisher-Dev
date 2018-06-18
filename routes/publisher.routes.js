@@ -4,43 +4,38 @@ var express          = require('express'),
     publisherModel   = require('../models/publisher.model');
     bookModel        = require('../models/book.model');   
 
-/* Handle incoming GET / POST publisher request - modular route*/
-    
 
 
-
-
-router.get('/' , (req , res)=>{
-    res.status(200).json({
-        message: 'ok'
-    });
-});
-
+/* Get all publishers */
 router.get('/getAllPublishers' , (req , res)=>{
     console.log('Get All publishers');
-    publisherModel.find({} , (err , publisher)=>{
-        if(err){
-            return res.status(500).send("there was problem finding the candidates");
-        }
-        else{
-            console.log(publisher);
-            res.send(publisher);
-        }
-    });
+    publisherModel.find({})
+    .then((publisher) => res.status(200).send(publisher))
+    .catch((err) => res.status(500).send("There was problem find publishers in database."));
 });
 
-router.post('/' , (req , res)=>{
+
+/* Adding new publisher*/
+router.post('/createNewPublisher' , (req , res)=>{
+    console.log(req.body.name)
     publisherModel.create({
-        id: req.body.id,
-        name: req.body.name,
-    },
-    (err , publisher)=>{
-        if (err) return res.status(500).send("There was problem adding publisher to database.");
-        res.status(200).send(publisher);
-    });
+        _id: new mongoos.Types.ObjectId(),
+        name: 'test',
+        image: '',
+        books: [],
+        goals:[{description: '' , target: 0 , current: 0}],
+        followers:[0],
+        following:[0],
+        status: '',
+        currently_writing: [0],
+        currently_reading:[0]
+    })
+    .then((publisher) => res.status(200).send(publisher))
+    .catch((err) => res.status(500).send(`There was problem adding publisher to database. ${err}`));
 });
 
-/* @Nola*/
+
+/* Get publisher books by publisher name*/
 router.get('/getPublisherBooks/:name' , (req , res)=>{
     console.log('Get All Publisher Books');
 
@@ -52,11 +47,23 @@ router.get('/getPublisherBooks/:name' , (req , res)=>{
                 console.log(books);
                 res.status(200).send(books);
             });
-        }).catch((err)=>{
-           res.status(500).send("There was problem find publisher in the database."); 
-        });
+        }).catch((err)=>{res.status(500).send("There was problem find publisher in the database."); 
     });
+});
 
+/* Get followers*/
+
+/* Add Followers*/
+
+/* Get Following*/
+
+/* Add new book*/
+
+/* Add goals*/
+
+/* Add status*/
+
+/* Delete book*/
 
 
 module.exports = router;
