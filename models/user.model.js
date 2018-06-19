@@ -13,7 +13,9 @@ var User = new Schema({
     ],
     followers: [Number],
     following: [Number],
-    borrowd_books: [Number],
+    borrowd_books: [
+        {book_id:Number ,current_chapter: Number }
+    ],
     unliked_books:[Number],
     recently_finished:[Number],
     wishlist:[Number]
