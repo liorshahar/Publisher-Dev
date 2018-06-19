@@ -2,7 +2,8 @@ var express          = require('express'),
     router           = express.Router(),
     mongoos          = require('mongoose'),
     userModel        = require('../models/user.model');
-    bookModel        = require('../models/book.model'); 
+    bookModel        = require('../models/book.model');
+    publisherModel   = require('../models/publisher.model');
 
 
 /* Get all users*/
@@ -17,7 +18,7 @@ router.get('/getAllUsers' , (req , res)=>{
 /* Get user by id and get offers books*/
 router.get('/userByID/:id' , (req , res)=>{
     var userProfile = {};
-    console.log('Get All users');
+    console.log('Get userByID');
     userModel.findById(req.params.id)
     .then(user=>{
         userProfile.user = user;
@@ -59,26 +60,102 @@ router.post('/updateProfileBooksCategoriesRemove' , (req , res)=>{
 
 
 /* Borrow new Book*/
-router.post('/borrowNewBook' , (req ,res)=>{
+// router.post('/borrowNewBook' , (req ,res)=>{
+//     var user   = req.body._id;
+//     console.log(user);
+//     bookModel.find({books : {$in: userProfile.user.wishlist}})
+//         .then(books=>{
+//             console.log(books);
+//             res.status(200).json(books);
+//         });
+//     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
+// });
+
+
+
+/* Get followers*/
+router.get('/GetUserFollowers/:id' , (req , res)=>{
+    console.log('Get All User Followers');
+    userModel.findById(req.params.id)
+    .then(user=>{
+        userModel.find({_id : {$in: user.followers}})
+        .then(users=>{
+            console.log(users);
+            res.status(200).json(users);
+        });
+    })
+    .catch((err) => res.status(500).send(`there was problem find user ${err}`));
+});
+
+
+
+/* Add Followers*/
+router.post('/AddFollowerToUser' , (req , res)=>{
+    console.log('POST request: /AddFollowerToUser');
     var user   = req.body._id;
-    var remCat = req.body.newBook;
-    console.log(user , newBook);
-    userModel.findByIdAndUpdate({_id: user}, {$addToSet: { categories: addCat}}, { 'new': true})
+    var followerId = req.body.followerId;
+    console.log(user , followerId);
+    userModel.findByIdAndUpdate({_id: user}, {$addToSet: { followers: followerId}}, { 'new': true})
     .then(()=> res.status(200).json({update : success}))
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
-/* Get followers*/
-
-/* Add Followers*/
-
 /* Get Following*/
+router.get('/GetUserFollowing/:id' , (req , res)=>{
+    console.log('Get All User Following');
+    userModel.findById(req.params.id)
+    .then(user=>{
+        publisherModel.find({_id : {$in: user.following}})
+        .then(users=>{
+            console.log(users);
+            res.status(200).json(users);
+        });
+    })
+    .catch((err) => res.status(500).send(`there was problem find user ${err}`));
+});
+
+
 
 /* Add book to wishlist*/
+router.post('/AddWishListUser' , (req , res)=>{
+    console.log('POST request: /AddWishListUser');
+    var user   = req.body._id;
+    var wishBookId = req.body.bookId;
+    console.log(user , wishBookId);
+    userModel.findByIdAndUpdate({_id: user}, {$addToSet: { wishlist: wishBookId}}, { 'new': true})
+    .then(()=> res.status(200).json({update : success}))
+    .catch((err) => res.status(500).send(`there was problem find user ${err}`));
+});
+
 
 /* Get wishlist*/
+router.post('/getUserWishList' , (req ,res)=>{
+    userModel.findById(req.body._id)
+    .then(user=>{
+        console.log(user);
+        bookModel.find({_id : {$in: user.wishlist}})
+        .then(books=>{
+            console.log(books);
+            res.status(200).json(books);
+        });
+    })
+    .catch((err) => res.status(500).send(`there was problem find user ${err}`));
+});
+
 
 /* Add goals*/
+router.post('/AddUserGoal' , (req , res)=>{
+    console.log('POST request: /AddUserGoal');
+    var goal = {};
+    var user   = req.body._id;
+    goal.description = req.body.description;
+    goal.target = req.body.target;
+    goal.current = req.body.current;
+    console.log(user , goal);
+    userModel.findByIdAndUpdate({_id: user}, {$addToSet: { goals: goal}}, { 'new': true})
+    .then(()=> res.status(200).json({update : success}))
+    .catch((err) => res.status(500).send(`there was problem find user ${err}`));
+});
 
 
 module.exports = router;
