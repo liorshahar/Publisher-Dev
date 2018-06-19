@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 /* Create and exports book schema*/
 
 var BookSchema = mongoose.Schema({
-    _id: Schema.Types.ObjectId,
+    _id: Number,
     title: String,
     img: String,
     publishDate: Date,
@@ -12,7 +12,7 @@ var BookSchema = mongoose.Schema({
     rank: Number,
     like:Number,
     reviews: [{reviewerId:Number , description:String}],
-    follwers:[Number],
+    followers:[Number],
     share:Number,
     categories:[String],
     writingProgress:Number,
