@@ -88,7 +88,6 @@ router.get('/GetUserFollowers/:id' , (req , res)=>{
 });
 
 
-
 /* Add Followers*/
 router.post('/AddFollowerToUser' , (req , res)=>{
     console.log('POST request: /AddFollowerToUser');
@@ -105,7 +104,7 @@ router.get('/GetUserFollowing/:id' , (req , res)=>{
     console.log('Get All User Following');
     userModel.findById(req.params.id)
     .then(user=>{
-        publisherModel.find({_id : {$in: user.following}})
+        userModel.find({_id : {$in: user.following}})
         .then(users=>{
             console.log(users);
             res.status(200).json(users);
@@ -132,7 +131,6 @@ router.post('/AddWishListUser' , (req , res)=>{
 router.post('/getUserWishList' , (req ,res)=>{
     userModel.findById(req.body._id)
     .then(user=>{
-        console.log(user);
         bookModel.find({_id : {$in: user.wishlist}})
         .then(books=>{
             console.log(books);
