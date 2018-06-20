@@ -1,6 +1,6 @@
 var express          = require('express'),
     router           = express.Router(),
-    mongoos          = require('mongoose'),
+    mongoose          = require('mongoose'),
     userModel        = require('../models/user.model');
     bookModel        = require('../models/book.model');
     publisherModel   = require('../models/publisher.model');
@@ -12,6 +12,18 @@ router.get('/getAllUsers' , (req , res)=>{
     userModel.find({})
     .then((users)=>res.status(200).send(users))
     .catch((err)=> res.status(500).send("there was problem finding the candidates"));  
+});
+
+/* Adding new user*/
+router.post('/createNewUser' , (req , res)=>{
+    console.log('POST request : Create new user');
+    console.log(req.body.name)
+    userModel.create({
+        _id: new mongoose.Types.ObjectId(),
+        name: req.body.name
+    })
+    .then((publisher) => res.status(200).send(publisher))
+    .catch((err) => res.status(500).send(`There was problem adding publisher to database. ${err}`));
 });
 
     
@@ -42,7 +54,7 @@ router.post('/updateProfileBooksCategoriesAdd' , (req , res)=>{
     var addCat = req.body.addCat;
     console.log(user , addCat);
     userModel.findByIdAndUpdate({_id: user}, {$addToSet: { categories: addCat}}, { 'new': true})
-    .then(()=> res.status(200).json({update : success}))
+    .then(()=> res.status(200).json({update : 'success'}))
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
@@ -54,7 +66,7 @@ router.post('/updateProfileBooksCategoriesRemove' , (req , res)=>{
     var remCat = req.body.remCat;
     console.log(user , remCat);
     userModel.findByIdAndUpdate({_id: user}, {$pull: { categories: remCat}})
-    .then(()=> res.status(200).json({update : success}))
+    .then(()=> res.status(200).json({update : 'success'}))
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
@@ -67,7 +79,7 @@ router.post('/borrowNewBook' , (req ,res)=>{
     borrowBook.current_chapter = 1;
     console.log(user , borrowBook.book_id);
     userModel.findByIdAndUpdate({_id: user}, {$push: { borrowd_books: borrowBook}}, { 'new': true})
-    .then(()=> res.status(200).json({update : success}))
+    .then(()=> res.status(200).json({update : 'success'}))
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
@@ -95,7 +107,7 @@ router.post('/AddFollowerToUser' , (req , res)=>{
     var followerId = req.body.followerId;
     console.log(user , followerId);
     userModel.findByIdAndUpdate({_id: user}, {$addToSet: { followers: followerId}}, { 'new': true})
-    .then(()=> res.status(200).json({update : success}))
+    .then(()=> res.status(200).json({update : 'success'}))
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
@@ -122,7 +134,7 @@ router.post('/AddWishListUser' , (req , res)=>{
     var wishBookId = req.body.bookId;
     console.log(user , wishBookId);
     userModel.findByIdAndUpdate({_id: user}, {$addToSet: { wishlist: wishBookId}}, { 'new': true})
-    .then(()=> res.status(200).json({update : success}))
+    .then(()=> res.status(200).json({update : 'success'}))
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
@@ -151,7 +163,7 @@ router.post('/AddUserGoal' , (req , res)=>{
     goal.current = req.body.current;
     console.log(user , goal);
     userModel.findByIdAndUpdate({_id: user}, {$push: { goals: goal}}, { 'new': true})
-    .then(()=> res.status(200).json({update : success}))
+    .then(()=> res.status(200).json({update : 'success'}))
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 

@@ -6,7 +6,7 @@ var Publisher = new Schema({
     _id: Schema.Types.ObjectId,
     name: String,
     image: String,
-    books: [Number],
+    books: [{type: Schema.Types.ObjectId}],
     goals:[{description: String , target: Number , current: Number}],
     followers:[Number],
     following:[Number],

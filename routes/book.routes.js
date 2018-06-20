@@ -1,28 +1,11 @@
 var express          = require('express'),
     router           = express.Router(),
-    mongoos          = require('mongoose'),
+    mongoose          = require('mongoose'),
     bookModel        = require('../models/book.model');
     userModel        = require('../models/user.model');
 
-/* Handle incoming GET / POST publisher request - modular route*/
-    
-
-router.get('/' , (req , res)=>{
-    res.status(200).json({
-        message: 'ok'
-    });
-});
 
 
-/*router.get('/getAll' , (req ,res)=>{
-    console.log('get All books');
-    bookModel.find({}).exec((err , books)=>{
-        if(err){
-            return res.status(500).send("there was problem finding the books");
-        }
-        res.json(books);
-    });
-});*/
 
 /* Get All Books */
 router.get('/getAll' , (req , res)=>{
@@ -74,7 +57,7 @@ router.post('/AddFollowerToBook' , (req , res)=>{
     var followerId = req.body.followerId;
     console.log(bookId , followerId);
     bookModel.findByIdAndUpdate({_id: bookId}, {$addToSet: { followers: followerId}}, { 'new': true})
-    .then(()=> res.status(200).json({update : success}))
+    .then(()=> res.status(200).json({update : 'success'}))
     .catch((err) => res.status(500).send(`there was problem find book ${err}`));
 });
 

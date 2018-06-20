@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 /* Create and exports publisher schema*/
     
 var User = new Schema({
-    _id: Number,
+     _id: Schema.Types.ObjectId,
     name: String,
     email: String,
     img: String,
@@ -14,7 +14,7 @@ var User = new Schema({
     followers: [Number],
     following: [Number],
     borrowd_books: [
-        {book_id:Number ,current_chapter: Number }
+        {book_id:{type: Schema.Types.ObjectId} ,current_chapter: Number }
     ],
     unliked_books:[Number],
     recently_finished:[Number],
