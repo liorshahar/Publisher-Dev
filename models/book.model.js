@@ -12,7 +12,7 @@ var BookSchema = mongoose.Schema({
     rank: Number,
     like:Number,
     reviews: [{reviewerId:Number , description:String}],
-    followers:[Number],
+    followers:[{type: Schema.Types.ObjectId}],
     share:Number,
     categories:[String],
     writingProgress:Number,

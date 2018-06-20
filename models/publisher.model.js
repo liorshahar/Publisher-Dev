@@ -8,8 +8,8 @@ var Publisher = new Schema({
     image: String,
     books: [{type: Schema.Types.ObjectId}],
     goals:[{description: String , target: Number , current: Number}],
-    followers:[Number],
-    following:[Number],
+    followers:[{type: Schema.Types.ObjectId}],
+    following:[{type: Schema.Types.ObjectId}],
     status: String,
     currently_writing: [Number],
     currently_reading:[Number]
