@@ -10,83 +10,83 @@ var express          = require('express'),
 router.get('/' , (req , res)=>{
      res.status(200).json({
         message: 'display all publisher routes',
-        description:
+        description:[
         {   
             return: 'Get all publisher',
             method: 'GET',
             route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/getAllPublishers',
             params: '/'
         },
-        description:
+
         {
             return: 'Adding new publisher',
             method: 'POST',
             route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/createNewPublisher',
             params: 'name'  
         },
-        description:
+    
         {
             return: 'Get publisher books by publisher name',
             method: 'GET',
             route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/getPublisherBooks/:name',
             params: '/:name'  
         },
-        description:
+     
         {
             return: 'Get followers by publisher id',
             method: 'POST',
             route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/getAllPublishers/getPublisherFollowers',
             params: 'pubId'  
         },
-        description:
+    
         {
             return: 'Add Followers',
             method: 'POST',
             route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/getAllPublishers/addFollower',
             params: 'pubId , folId'  
         },
-        description:
+    
         {
             return: 'remove Followers',
             method: 'POST',
             route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/getAllPublishers/removeFollower',
             params: 'pubId , folId'  
         },
-        description:
+  
         {
             return: 'Get Following',
             method: 'POST',
             route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/getPublisherFollowing',
             params: 'pubId'  
         },
-        description:
+      
         {
             return: 'Create New Book By Publisher',
             method: 'POST',
             route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/createNewBook',
             params: 'bookName , authorId , authorId , bookTitle , img , autorName , categorie'  
         },
-        description:
+   
         {
             return: 'Adding chapters to book by book id',
             method: 'POST',
             route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/addingChaptersToBook',
             params: 'chapterNumber , readingTime , content , bookId '  
         },
-        description:
+    
         {
             return: 'Adding publisher goal',
             method: 'POST',
             route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/AddPublisherGoal',
             params: '_id , description , target , current '  
         },
-        description:
+     
         {
             return: 'Delete Book',
             method: 'POST',
             route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/deleteBook',
             params: 'bookId'  
-        }
+        }]
      })
 });
 
