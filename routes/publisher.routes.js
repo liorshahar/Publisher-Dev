@@ -64,7 +64,7 @@ router.get('/' , (req , res)=>{
             return: 'Create New Book By Publisher',
             method: 'POST',
             route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/createNewBook',
-            params: 'bookName , authorId , authorId , bookTitle , img , autorName , categorie'  
+            params: 'bookName , authorId  , bookTitle , img , autorName , category'  
         },
    
         {
