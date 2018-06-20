@@ -26,7 +26,6 @@ router.post('/createNewUser' , (req , res)=>{
     .catch((err) => res.status(500).send(`There was problem adding publisher to database. ${err}`));
 });
 
-    
 /* Get user by id and get offers books*/
 router.get('/userByID/:id' , (req , res)=>{
     var userProfile = {};
@@ -46,7 +45,6 @@ router.get('/userByID/:id' , (req , res)=>{
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
-
 /* Update categories that user like*/
 router.post('/updateProfileBooksCategoriesAdd' , (req , res)=>{
     console.log('POST request: /updateProfileBooksCategories');
@@ -57,7 +55,6 @@ router.post('/updateProfileBooksCategoriesAdd' , (req , res)=>{
     .then(()=> res.status(200).json({update : 'success'}))
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
-
 
 /* Remove Categories thet user unlike*/
 router.post('/updateProfileBooksCategoriesRemove' , (req , res)=>{
@@ -70,7 +67,6 @@ router.post('/updateProfileBooksCategoriesRemove' , (req , res)=>{
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
-
 /* Borrow new Book*/
 router.post('/borrowNewBook' , (req ,res)=>{
     var borrowBook = {};
@@ -82,8 +78,6 @@ router.post('/borrowNewBook' , (req ,res)=>{
     .then(()=> res.status(200).json({update : 'success'}))
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
-
-
 
 /* Get followers*/
 router.get('/GetUserFollowers/:id' , (req , res)=>{
@@ -98,7 +92,6 @@ router.get('/GetUserFollowers/:id' , (req , res)=>{
     })
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
-
 
 /* Add Followers*/
 router.post('/AddFollowerToUser' , (req , res)=>{
@@ -125,8 +118,6 @@ router.get('/GetUserFollowing/:id' , (req , res)=>{
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
-
-
 /* Add book to wishlist*/
 router.post('/AddWishListUser' , (req , res)=>{
     console.log('POST request: /AddWishListUser');
@@ -137,7 +128,6 @@ router.post('/AddWishListUser' , (req , res)=>{
     .then(()=> res.status(200).json({update : 'success'}))
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
-
 
 /* Get wishlist*/
 router.post('/getUserWishList' , (req ,res)=>{
@@ -152,7 +142,6 @@ router.post('/getUserWishList' , (req ,res)=>{
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
-
 /* Add goals*/
 router.post('/AddUserGoal' , (req , res)=>{
     console.log('POST request: /AddUserGoal');
@@ -166,6 +155,5 @@ router.post('/AddUserGoal' , (req , res)=>{
     .then(()=> res.status(200).json({update : 'success'}))
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
-
 
 module.exports = router;

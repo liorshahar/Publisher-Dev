@@ -15,7 +15,6 @@ router.get('/getAllPublishers' , (req , res)=>{
     .catch((err) => res.status(500).send("There was problem find publishers in database."));
 });
 
-
 /* Adding new publisher*/
 router.post('/createNewPublisher' , (req , res)=>{
     console.log('POST request : Create new publisher');
@@ -27,7 +26,6 @@ router.post('/createNewPublisher' , (req , res)=>{
     .then((publisher) => res.status(200).send(publisher))
     .catch((err) => res.status(500).send(`There was problem adding publisher to database. ${err}`));
 });
-
 
 /* Get publisher books by publisher name*/
 router.get('/getPublisherBooks/:name' , (req , res)=>{
@@ -45,7 +43,6 @@ router.get('/getPublisherBooks/:name' , (req , res)=>{
     });
 });
 
-
 /* Get followers by publisher id*/
 router.post('/getPublisherFollowers' ,(req , res)=>{
     console.log('POST request: get all Followers');
@@ -57,9 +54,9 @@ router.post('/getPublisherFollowers' ,(req , res)=>{
         userModel.find({_id : {$in: publisher.followers}})
         .then((followers) => res.status(200).send(followers))
         .catch((err) => res.status(500).send(`There was problem find follower. ${err}`));
-    }).catch((err) => res.status(500).send(`There was problem publisher. ${err}`));
+    })
+    .catch((err) => res.status(500).send(`There was problem publisher. ${err}`));
 });
-
 
 /* Add Followers*/
 router.post('/addFollower' ,(req , res)=>{
@@ -88,7 +85,6 @@ router.post('/addFollower' ,(req , res)=>{
     .catch((err) => res.status(500).send(`There was problem adding follower. ${err}`));
 });
 
-
 /* Add Followers*/
 router.post('/removeFollower' ,(req , res)=>{
     console.log('POST request: remove Follower');
@@ -101,7 +97,6 @@ router.post('/removeFollower' ,(req , res)=>{
     .then((publisher) => res.status(200).send(publisher))
     .catch((err) => res.status(500).send(`There was problem remove follower. ${err}`));
 });
-
 
 /* Get Following*/
 router.post('/getPublisherFollowing' ,(req , res)=>{
@@ -117,7 +112,6 @@ router.post('/getPublisherFollowing' ,(req , res)=>{
     })
     .catch((err) => res.status(500).send(`There was problem publisher. ${err}`));
 });
-
 
 
 /* Create New Book By Publisher*/
@@ -191,18 +185,22 @@ router.post('/AddUserGoal' , (req , res)=>{
 });
 
 /* Delete Book*/
-
 router.post('/deleteBook' , (req , res)=>{
     console.log('POST request: /delete book');
     console.log(req.body.bookId);
     bookModel.remove({_id : req.body.bookId})
     .then(()=> {
-        userModel.update( {},  { borrowd_books: {$pullAll: {book_id: [ req.body.bookId ] } }}  )
+        console.log('userModel');
+        userModel.update({},{$pull : {borrowd_books: {$elemMatch : {_id : req.body.bookId}}}}, { multi: true })
+        .then(()=> {
+
+         console.log('publiserModel');
+             publisherModel.update({},{$pull : {books: {$elemMatch : {_id : req.body.bookId}}}}, { multi: true })
+        })
+        .then(()=>res.status(200).json({'delete' : 'success'}))     
+        .catch((err) => res.status(500).send(`there was problem delete booke ${err}`))
     })
-    .then(()=> res.status(200).json({'delete' : 'success'}))
     .catch((err) => res.status(500).send(`there was problem delete booke ${err}`));
-
 });
-
 
 module.exports = router;

@@ -21,7 +21,6 @@ router.get('/getAll' , (req , res)=>{
     });
 });
 
-
 /* Get Book By ID*/
 router.get('/GetBookById/:id' , (req , res)=>{
     console.log('Get Book By ID');
@@ -32,7 +31,6 @@ router.get('/GetBookById/:id' , (req , res)=>{
     })
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
-
 
 /* Get Book followers*/
 router.get('/GetBookFollowers/:id' , (req , res)=>{
@@ -49,7 +47,6 @@ router.get('/GetBookFollowers/:id' , (req , res)=>{
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
-
 /* Add Followers to Book*/
 router.post('/AddFollowerToBook' , (req , res)=>{
     console.log('POST request: /AddFollowerToBook');
@@ -60,7 +57,5 @@ router.post('/AddFollowerToBook' , (req , res)=>{
     .then(()=> res.status(200).json({update : 'success'}))
     .catch((err) => res.status(500).send(`there was problem find book ${err}`));
 });
-
-
 
 module.exports = router;
