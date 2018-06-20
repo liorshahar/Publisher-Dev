@@ -17,6 +17,12 @@ router.get('/' , (req , res)=>{
             route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/getAllPublishers',
             params: '/'
         },
+        {
+            return: 'Get publisher by id',
+            method: 'POST',
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/getPublisherById',
+            params: 'pubId'  
+        },
 
         {
             return: 'Adding new publisher',
@@ -98,6 +104,15 @@ router.get('/getAllPublishers' , (req , res)=>{
     .catch((err) => res.status(500).send("There was problem find publishers in database."));
 });
 
+
+/* Get publisher by id*/
+
+router.post('/getPublisherById' , (req , res)=>{
+    publisherId = req.body.pubId;
+    publisherModel.findById(publisherId)
+    .then((publisher) => res.status(200).send(publisher))
+    .catch((err) => res.status(500).send(`There was problem adding follower. ${err}`));
+})
 /* Adding new publisher*/
 router.post('/createNewPublisher' , (req , res)=>{
     console.log('POST request : Create new publisher');
@@ -210,7 +225,7 @@ router.post('/createNewBook' , (req , res) =>{
         title: req.body.bookTitle,
         img: `http://${req.body.img}`,
         authorName: req.body.autorName,
-        categories: req.body.categorie
+        categories: req.body.category
     });
 
       newBook.save((err)=>{
