@@ -10,10 +10,11 @@ var express          = require('express'),
 router.get('/' , (req , res)=>{
      res.status(200).json({
         message: 'display all routes',
+        description:
         {   
             return: 'Get all publisher',
             method: 'GET',
-            route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/getAllPublishers'
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/getAllPublishers',
             params: '/'
         }
      })
