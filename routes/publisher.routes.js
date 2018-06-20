@@ -154,7 +154,7 @@ router.post('/addFollower' ,(req , res)=>{
         var followersArray = publisher.followers;
 
         /* Checking if follower exist*/
-        if(followersArray.includes(parseInt(followerId))){
+        if(followersArray.includes(followerId)){
             console.log('follower exist');
             res.status(200).json({'message' : 'follower exist'});
         }else{
