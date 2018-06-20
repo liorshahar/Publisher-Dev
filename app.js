@@ -11,16 +11,16 @@ var express         = require('express'),
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
-app.get('/' , (req , res)=>{
-    res.status(200).json({'main routes': 
-        [
-        {'publisher routes': '/publisher'},
-        {'books routes': '/book'},
-        {'user routes': '/user'}
-    ]});
-})
 app.use('/publisher' , publisherRoutes);
 app.use('/book' , bookRoutes);
 app.use('/user', userRoutes);
 
+app.get('/' , (req , res)=>{
+    res.status(200).json({'main routes': 
+        [
+        {'publisher routes': 'https://hanan-lior-publisher-app.herokuapp.com/publisher'},
+        {'books routes': 'https://hanan-lior-publisher-app.herokuapp.com/book'},
+        {'user routes': 'https://hanan-lior-publisher-app.herokuapp.com/user'}
+    ]});
+})
 module.exports = app;
