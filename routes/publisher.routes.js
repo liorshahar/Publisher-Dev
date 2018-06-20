@@ -35,14 +35,14 @@ router.get('/' , (req , res)=>{
         {
             return: 'Get followers by publisher id',
             method: 'POST',
-            route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/getAllPublishers/getPublisherFollowers',
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/getPublisherFollowers',
             params: 'pubId'  
         },
     
         {
             return: 'Add Followers',
             method: 'POST',
-            route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/getAllPublishers/addFollower',
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/publisher/addFollower',
             params: 'pubId , folId'  
         },
     
@@ -154,7 +154,7 @@ router.post('/addFollower' ,(req , res)=>{
         var followersArray = publisher.followers;
 
         /* Checking if follower exist*/
-        if(followersArray.includes(followerId)){
+        if(followersArray.includes(parseInt(followerId))){
             console.log('follower exist');
             res.status(200).json({'message' : 'follower exist'});
         }else{
