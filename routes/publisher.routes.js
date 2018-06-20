@@ -7,6 +7,12 @@ var express          = require('express'),
 
 
 
+router.get('/' , (req , res)=>{
+     res.status(200).json({
+        message: 'ok'
+     })
+});
+
 /* Get all publishers */
 router.get('/getAllPublishers' , (req , res)=>{
     console.log('Get All publishers');
