@@ -6,6 +6,93 @@ var express          = require('express'),
     publisherModel   = require('../models/publisher.model');
 
 
+
+
+
+/* Get all User Routes*/
+router.get('/' , (req , res)=>{
+    res.status(200).json({
+        message: 'display all User routes',
+        description:
+        {   
+            return: 'Get all Users',
+            method: 'GET',
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/user/getAllUsers',
+            params: '/'
+        },
+        description:
+        {
+            return: 'Get user by id and offers books',
+            method: 'GET',
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/user/userByID',
+            params: '/:id'
+        },
+        description:
+        {
+            return: 'Update categories that user like',
+            method: 'POST',
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/user/updateProfileBooksCategoriesAdd',
+            params: 'id , addCat'
+        },
+        description:
+        {
+            return: 'Remove Categories thet user unlike',
+            method: 'POST',
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/user/updateProfileBooksCategoriesRemove',
+            params: 'id , remCat'
+        },
+        description:
+        {
+            return: 'Borrow new Book',
+            method: 'POST',
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/user/borrowNewBook',
+            params: 'id , book'
+        },
+        description:
+        {
+            return: 'Get user followers',
+            method: 'GET',
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/user/GetUserFollowers',
+            params: '/:id'
+        },
+        description:
+        {
+            return: 'Add Followers',
+            method: 'POST',
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/user/AddFollowerToUser',
+            params: '_id , followerId'
+        },
+        description:
+        {
+            return: 'Get Following',
+            method: 'GET',
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/user/GetUserFollowing',
+            params: '/:id'
+        },
+        description:
+        {
+            return: 'Add book to wishlis',
+            method: 'POST',
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/user/AddWishListUser',
+            params: '_id , bookId'
+        },
+        description:
+        {
+            return: 'Get wishlist',
+            method: 'POST',
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/user/getUserWishList',
+            params: '_id'
+        },
+        description:
+        {
+            return: 'Add goals',
+            method: 'POST',
+            route: 'https://hanan-lior-publisher-app.herokuapp.com/user/AddUserGoal',
+            params: '_id , description , target , current'
+        }
+     })
+});
+
 /* Get all users*/
 router.get('/getAllUsers' , (req , res)=>{
     console.log('Get All users');
