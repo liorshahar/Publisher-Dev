@@ -12,10 +12,11 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
 app.get('/' , (req , res)=>{
-    res.status(200).json({main routes: [
-        {publisher routes: '/publisher'},
-        {books routes: '/book'},
-        {user routes: '/user'}
+    res.status(200).json({'main routes': 
+        [
+        {'publisher routes': '/publisher'},
+        {'books routes': '/book'},
+        {'user routes': '/user'}
     ]});
 })
 app.use('/publisher' , publisherRoutes);
