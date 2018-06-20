@@ -6,7 +6,39 @@ var express          = require('express'),
 
 
 
-
+/* Get all Book Routes*/
+router.get('/' , (req , res)=>{
+    res.status(200).json({
+        message: 'display all Book routes',
+        description:
+        [
+            {   
+                return: 'Get All Books',
+                method: 'GET',
+                route: 'https://hanan-lior-publisher-app.herokuapp.com/book/getAll',
+                params: '/'
+            },
+            {   
+                return: 'Get Book By ID',
+                method: 'GET',
+                route: 'https://hanan-lior-publisher-app.herokuapp.com/book/GetBookById',
+                params: '/:id'
+            },
+            {   
+                return: 'Get Book followers',
+                method: 'GET',
+                route: 'https://hanan-lior-publisher-app.herokuapp.com/book/GetBookFollowers',
+                params: '/:id'
+            },
+            {   
+                return: 'Add Followers to Book',
+                method: 'POST',
+                route: 'https://hanan-lior-publisher-app.herokuapp.com/book/AddFollowerToBook',
+                params: 'bookId , followerId'
+            }
+        ]
+     })
+});
 /* Get All Books */
 router.get('/getAll' , (req , res)=>{
     console.log('Get All Books');
