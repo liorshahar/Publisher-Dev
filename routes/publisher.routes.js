@@ -176,6 +176,10 @@ router.post('/addFollower' ,(req , res)=>{
             publisherModel.findByIdAndUpdate(publisherId,
              { $addToSet: { 'followers': followerId },$inc: { 'followerscount': 1 }},{'new': true, 'upsert': true })
             .exec()
+            .then(()=>{
+                userModel.findByIdAndUpdate(followerId ,
+                      { $addToSet: { 'followers': publisherId}},{'new': true, 'upsert': true })
+            })
             .then((publisher) => res.status(200).send(publisher))
             .catch((err) => res.status(500).send(`There was problem adding follower. ${err}`));
         }

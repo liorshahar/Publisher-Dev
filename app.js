@@ -3,14 +3,15 @@ var express         = require('express'),
     bodyParser      = require('body-parser'),
     db              = require('./db/db.connection'),
     bookRoutes      = require('./routes/book.routes'),
-    publisherRoutes = require('./routes/publisher.routes');
-    userRoutes      = require('./routes/user.routes');
+    publisherRoutes = require('./routes/publisher.routes'),
+    userRoutes      = require('./routes/user.routes'),
+    cors            = require('cors'); 
     
 /* The app module , middleware and route configuration*/
 
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
-
+app.use(cors());
 app.use('/publisher' , publisherRoutes);
 app.use('/book' , bookRoutes);
 app.use('/user', userRoutes);
