@@ -157,7 +157,7 @@ router.post('/updateProfileBooksCategoriesRemove' , (req , res)=>{
 /* Borrow new Book*/
 router.post('/borrowNewBook' , (req ,res)=>{
     var borrowBook = {};
-    var user   = req.body._id;
+    var user   = req.body.id;
     borrowBook.book_id = req.body.book;
     borrowBook.current_chapter = 1;
     console.log(user , borrowBook.book_id);
