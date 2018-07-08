@@ -90,4 +90,20 @@ router.post('/AddFollowerToBook' , (req , res)=>{
     .catch((err) => res.status(500).send(`there was problem find book ${err}`));
 });
 
+/* Calculate reading time by book name*/
+
+router.get('/readingTime/:bookName' , (req , res)=>{
+    console.log('Calculate reading time by book name');
+    console.log(req.params.bookName)
+    bookModel.aggregate([
+        {$match : { book_name : req.params.bookName } },
+        {$unwind: "$chapters"},
+        { $group : { _id: null, readingTime : {  $sum : "$chapters.readingTime" } } }
+        
+
+    ])
+    .then((book)=> res.status(200).send(book))
+    .catch((err) => res.status(500).send(`there was problem find user ${err}`));
+});
+
 module.exports = router;
