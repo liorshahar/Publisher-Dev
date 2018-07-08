@@ -16,7 +16,7 @@ var User = new Schema({
     borrowd_books: [
         {book_id:{type: Schema.Types.ObjectId} ,current_chapter: Number }
     ],
-    unliked_books:[Number],
+    unliked_books:[String],
     recently_finished:[Number],
     wishlist:[Number]
 },{collection : 'users'});
