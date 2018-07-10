@@ -6,7 +6,8 @@ var User = new Schema({
      _id: Schema.Types.ObjectId,
     name: String,
     email: String,
-    img: String,
+    image: String,
+    backgroundImage: String,
     categories: [String],
     goals: [
         {description: String , target: Number , current: Number}
@@ -19,7 +20,8 @@ var User = new Schema({
     ],
     unliked_books:[Schema.Types.ObjectId],
     recently_finished:[Schema.Types.ObjectId],
-    wishlist:[Schema.Types.ObjectId]
+    wishlist:[Schema.Types.ObjectId],
+    currently_writing:[Schema.Types.ObjectId]
 },{collection : 'users'});
 
 /* Exporting the schema*/
