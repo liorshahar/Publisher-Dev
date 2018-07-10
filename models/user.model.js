@@ -11,14 +11,14 @@ var User = new Schema({
     goals: [
         {description: String , target: Number , current: Number}
     ],
-    followers: [Number],
-    following: [Number],
+    followers: [Schema.Types.ObjectId],
+    following: [Schema.Types.ObjectId],
     borrowd_books: [
         {book_id:{type: Schema.Types.ObjectId} ,current_chapter: Number }
     ],
-    unliked_books:[String],
-    recently_finished:[Number],
-    wishlist:[Number]
+    unliked_books:[Schema.Types.ObjectId],
+    recently_finished:[Schema.Types.ObjectId],
+    wishlist:[Schema.Types.ObjectId]
 },{collection : 'users'});
 
 /* Exporting the schema*/
