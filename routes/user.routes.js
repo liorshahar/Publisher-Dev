@@ -4,6 +4,51 @@ var express          = require('express'),
     userModel        = require('../models/user.model');
     bookModel        = require('../models/book.model');
     publisherModel   = require('../models/publisher.model');
+    messageModel   = require('../models/message.model');
+
+
+/* Get all messages*/
+router.get('/getMessages' , (req , res)=>{
+    console.log('Get All Messages');
+    messageModel.find({})
+   .then((messages)=>res.status(200).send(messages))
+    .catch((err)=> res.status(500).send("there was problem finding the candidates"));  
+});
+
+
+
+router.get('/getUserMessages/:id' , (req , res)=>{
+    var messages = {};
+    console.log('Get User Messages');
+    messageModel.find({UserId:req.params.id})
+    .then((messages)=> res.status(200).json(messages))
+    .catch((err) => res.status(500).send(`there was problem find user ${err}`));
+});
+
+router.get('/getUserInboxMessages/:id' , (req , res)=>{
+    var messages = {};
+    console.log('Get User Inbox Messages');
+    messageModel.find({UserId:req.params.id})
+    .then(messages=>{
+            console.log(messages)
+            res.status(200).json(messages);
+    })
+    .catch((err) => res.status(500).send(`there was problem find user ${err}`));
+});
+
+
+router.post('/sendMessage' ,(req,res)=>{
+    var user = req.body._id;
+    var userToSent   = req.body.ToUserId;
+    var message = req.body.message;
+    var mes = {};
+    mes.reciverID = userToSent;
+    mes.message = message;
+    mes.date = new Date('01.02.2012');
+    messageModel.findOneAndUpdate({UserId: user}, {$addToSet: { Sent: mes}}, { 'new': true})
+    .then(()=> res.status(200).json({update : 'success'}))
+    .catch((err) => res.status(500).send(`there was problem find user ${err}`));
+});
 
 
 
@@ -240,6 +285,22 @@ router.post('/AddUserGoal' , (req , res)=>{
     console.log(user , goal);
     userModel.findByIdAndUpdate({_id: user}, {$push: { goals: goal}}, { 'new': true})
     .then(()=> res.status(200).json({update : 'success'}))
+    .catch((err) => res.status(500).send(`there was problem find user ${err}`));
+});
+
+/* update finish chapter */
+router.post('/updateFinishChapter', (req,res)=>{
+    console.log('POST request: /updateFinishChapter');
+    var bookId = req.body.bookId;
+    var userId = req.body._id;
+    var chapter = req.body.chapter;
+    console.log(bookId , userId,chapter);
+    userModel.findById(userId)
+    .then(user=>{
+        console.log(user);
+        userModel.findByIdAndUpdate({book_id : {$in: user.borrowd_books.book_id}}, {$set: { current_chapter: chapter}})
+        .then(()=> res.status(200).json({update : 'success'}))
+    })
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
