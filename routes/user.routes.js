@@ -299,7 +299,7 @@ router.post('/removeFromUnliked' ,(req , res)=>{
     bookId  = req.body.bookId;
     console.log(publisherId + " " + followerId);
     userModel.findByIdAndUpdate(userId,
-    { $pull: { 'unliked_books': bookId }})
+    { $pull: { 'unliked_books': {$in:[bookId]}}})
     .exec()
     .then((user) => res.status(200).send(user))
     .catch((err) => res.status(500).send(`There was problem remove follower. ${err}`));
