@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 /* Create and exports book schema*/
 
 var Message = new Schema({
-    UserId: Schema.Types.ObjectId,
+	_id: Schema.Types.ObjectId,
+    UserId: String,
     Inbox:[{messageId: Number,SenderId:Number , date:Date , message:String}],
     Sent:[{messageId: Number,reciverID:Number , date:Date , message:String}]
 

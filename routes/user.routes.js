@@ -19,7 +19,7 @@ router.get('/getMessages' , (req , res)=>{
 
 
 router.get('/getUserMessages/:id' , (req , res)=>{
-    var messages = {};
+    // var messages = {};
     console.log('Get User Messages');
     messageModel.find({UserId:req.params.id})
     .then((messages)=> res.status(200).json(messages))
