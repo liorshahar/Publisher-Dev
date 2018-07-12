@@ -282,12 +282,16 @@ router.post('/updateFinishChapter', (req,res)=>{
     var bookId = req.body.bookId;
     var userId = req.body._id;
     var chapter = req.body.chapter;
-    console.log(bookId , userId,chapter);
+    var book = {};
+    book.book_id = bookId;
+    book.current_chapter = chapter;
+    console.log(bookId , userId ,chapter);
     userModel.findById(userId)
     .then(user=>{
-        console.log(user);
-        userModel.findByIdAndUpdate({book_id : {$in: user.borrowd_books.book_id}}, {$set: { current_chapter: chapter}})
+        user.borrowd_books.pull( {book_id: bookId});
+        userModel.findByIdAndUpdate({_id: userId} , {$addToSet: { borrowd_books: book}}, { 'new': true})
         .then(()=> res.status(200).json({update : 'success'}))
+        .catch((err) => res.status(500).send(`there was problem find user ${err}`));
     })
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
