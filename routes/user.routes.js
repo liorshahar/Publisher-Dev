@@ -193,7 +193,7 @@ router.post('/borrowNewBook' , (req ,res)=>{
     var borrowBook = {};
     var user   = req.body._id;
     borrowBook.book_id = req.body.book;
-    borrowBook.current_chapter = 1;
+    borrowBook.current_chapter = 0;
     console.log(user , borrowBook.book_id);
     userModel.findByIdAndUpdate({_id: user} , {$addToSet: { borrowd_books: borrowBook}}, { 'new': true})
     .then(()=> res.status(200).json({update : 'success'}))
@@ -242,10 +242,11 @@ router.get('/GetUserFollowing/:id' , (req , res)=>{
 /* Add book to wishlist*/
 router.post('/AddWishListUser' , (req , res)=>{
     console.log('POST request: /AddWishListUser');
+    wishlistBook = {};
     var user   = req.body._id;
-    var wishBookId = req.body.bookId;
-    console.log(user , wishBookId);
-    userModel.findByIdAndUpdate({_id: user}, {$addToSet: { wishlist: wishBookId}}, { 'new': true})
+    wishlistBook.book_id  = req.body.bookId;
+    console.log(user , wishlistBook);
+    userModel.findByIdAndUpdate({_id: user}, {$addToSet: { wishlist: wishlistBook}}, { 'new': true})
     .then(()=> res.status(200).json({update : 'success'}))
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
