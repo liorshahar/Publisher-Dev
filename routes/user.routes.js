@@ -292,5 +292,17 @@ router.post('/updateFinishChapter', (req,res)=>{
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
+/* remove book from unliked book*/
+router.post('/removeFromUnliked' ,(req , res)=>{
+    console.log('POST request: remove book from unliked book');
+    userId = req.body.userId;
+    bookId  = req.body.bookId;
+    console.log(publisherId + " " + followerId);
+    userModel.findByIdAndUpdate(userId,
+    { $pull: { 'unliked_books': bookId }})
+    .exec()
+    .then((user) => res.status(200).send(user))
+    .catch((err) => res.status(500).send(`There was problem remove follower. ${err}`));
+});
 
 module.exports = router;
