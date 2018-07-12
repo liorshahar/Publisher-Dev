@@ -25,18 +25,6 @@ router.get('/getUserMessages/:id' , (req , res)=>{
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
-router.get('/getUserInboxMessages/:id' , (req , res)=>{
-    var messages = {};
-    console.log('Get User Inbox Messages');
-    messageModel.find({UserId:req.params.id})
-    .then(messages=>{
-            console.log(messages)
-            res.status(200).json(messages);
-    })
-    .catch((err) => res.status(500).send(`there was problem find user ${err}`));
-});
-
-
 router.post('/sendMessage' ,(req,res)=>{
     var user = req.body._id;
     var userToSent   = req.body.ToUserId;
@@ -45,7 +33,7 @@ router.post('/sendMessage' ,(req,res)=>{
     mes.reciverID = userToSent;
     mes.message = message;
     mes.date = new Date('01.02.2012');
-    messageModel.findOneAndUpdate({UserId: user}, {$addToSet: { Sent: mes}}, { 'new': true})
+    messageModel.findOneAndUpdate({UserId: user}, {$push: { Sent: mes}}, { 'new': true})
     .then(()=> res.status(200).json({update : 'success'}))
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
