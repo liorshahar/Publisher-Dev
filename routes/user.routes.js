@@ -295,9 +295,9 @@ router.post('/updateFinishChapter', (req,res)=>{
 /* remove book from unliked book*/
 router.post('/removeFromUnliked' ,(req , res)=>{
     console.log('POST request: remove book from unliked book');
-    userId = req.body.userId;
-    bookId  = req.body.bookId;
-    console.log(publisherId + " " + followerId);
+    userId = req.body._id;
+    bookId  = req.body.book;
+    console.log(userId + " " + bookId);
     userModel.findByIdAndUpdate(userId,
     { $pull: { 'unliked_books': {$in:[bookId]}}})
     .exec()
