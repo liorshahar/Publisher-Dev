@@ -1,10 +1,11 @@
 var express          = require('express'),
     router           = express.Router(),
-    mongoose          = require('mongoose'),
+    mongoose         = require('mongoose'),
     userModel        = require('../models/user.model');
     bookModel        = require('../models/book.model');
     publisherModel   = require('../models/publisher.model');
-    messageModel   = require('../models/message.model');
+    messageModel     = require('../models/message.model');
+    ObjectId         = require('mongoose').Types.ObjectId;
 
 
 /* Get all messages*/
@@ -296,5 +297,16 @@ router.post('/updateFinishChapter', (req,res)=>{
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
+/* remove book from unliked book*/
+router.post('/removeFromUnliked' ,(req , res)=>{
+    console.log('POST request: remove book from unliked book');
+    userId = req.body._id;
+    bookId  = req.body.book;
+    console.log(userId + " " + bookId);
+    userModel.findByIdAndUpdate( userId , { $pull: { unliked_books: { $in: [bookId] } }} , {safe : true , upsert: true} )
+    // .exec()
+    .then((user) => res.status(200).send(user))
+    .catch((err) => res.status(500).send(`There was problem remove follower. ${err}`));
+});
 
 module.exports = router;

@@ -35,6 +35,12 @@ router.get('/' , (req , res)=>{
                 method: 'POST',
                 route: 'https://hanan-lior-publisher-app.herokuapp.com/book/AddFollowerToBook',
                 params: 'bookId , followerId'
+            },
+            {
+                return: 'reading Time by bookName',
+                method: 'get',
+                route: 'https://hanan-lior-publisher-app.herokuapp.com/book/readingTime/:bookName',
+                params: 'bookName'
             }
         ]
      })
