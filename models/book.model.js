@@ -8,6 +8,7 @@ var BookSchema = mongoose.Schema({
     img: String,
     publishDate: Date,
     authorName: String,
+    rate: Number,
     authorId: Number,
     rank: Number,
     like:Number,

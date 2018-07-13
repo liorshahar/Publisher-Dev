@@ -40,6 +40,16 @@ router.post('/sendMessage' ,(req,res)=>{
 });
 
 
+/* Rate a Book */
+router.post('/rateBook' , (req , res)=>{
+    console.log('POST request : Rate A Book');
+    var bookId   = req.body.bookId;
+    var rate = req.body.rate;
+    console.log(bookId , rate);
+    bookModel.update({_id: bookId}, {$inc: { rate: rate}})
+    .then(()=> res.status(200).json({update : 'success'}))
+    .catch((err) => res.status(500).send(`there was problem rating book ${err}`));
+});
 
 
 
@@ -123,7 +133,17 @@ router.get('/' , (req , res)=>{
             method: 'POST',
             route: 'https://hanan-lior-publisher-app.herokuapp.com/user/AddUserGoal',
             params: '_id , description , target , current'
-        }]
+        },
+        {
+            return: 'Rate A Book',
+            method: 'POST',
+            route:  'https://hanan-lior-publisher-app.herokuapp.com/user/rateBook',
+            params: 'bookId, rate'
+        }
+
+
+
+        ]
      })
 });
 
