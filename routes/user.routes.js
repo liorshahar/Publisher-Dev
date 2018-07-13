@@ -193,7 +193,7 @@ router.post('/borrowNewBook' , (req ,res)=>{
     var borrowBook = {};
     var user   = req.body._id;
     borrowBook.book_id = req.body.book;
-    borrowBook.current_chapter = 1;
+    borrowBook.current_chapter = 0;
     console.log(user , borrowBook.book_id);
     userModel.findByIdAndUpdate({_id: user} , {$addToSet: { borrowd_books: borrowBook}}, { 'new': true})
     .then(()=> res.status(200).json({update : 'success'}))
