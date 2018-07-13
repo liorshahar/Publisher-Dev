@@ -20,7 +20,7 @@ var User = new Schema({
     ],
     unliked_books:[String],
     recently_finished:[Schema.Types.ObjectId],
-    wishlist:[Schema.Types.ObjectId],
+    wishlist:[{book_id:{type: Schema.Types.ObjectId}}],
     currently_writing:[Schema.Types.ObjectId]
 },{collection : 'users'});
 
