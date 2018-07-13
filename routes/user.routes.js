@@ -284,6 +284,31 @@ router.post('/getUserWishList' , (req ,res)=>{
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
+/* remove book from wish list */
+router.post('/removeFromWishList', (req,res)=>{
+    console.log('POST request: /removeFromWishList');
+    var bookId = req.body.bookId;
+    var user = req.body.userId;
+    userModel.update({ _id: user }, { $pull: { wishlist: { book_id: bookId } } }, { multi: true })
+    .then(()=> res.status(200).json({update : 'success'}))
+    .catch((err) => res.status(500).send(`there was problem find user ${err}`));
+});
+
+/* remove book from borrowd_books */
+router.post('/removeFromBorrowBooks', (req,res)=>{
+    console.log('POST request: /removeFromBorrowBooks');
+    var bookId = req.body.bookId;
+    var user = req.body.userId;
+    userModel.update({ _id: user }, {$pull: { borrowd_books: { book_id: bookId } } }, { multi: true })
+    .then(()=> res.status(200).json({update : 'success'}))
+    .catch((err) => res.status(500).send(`there was problem find user ${err}`));
+});
+
+
+
+
+
+
 /* Add goals*/
 router.post('/AddUserGoal' , (req , res)=>{
     console.log('POST request: /AddUserGoal');
