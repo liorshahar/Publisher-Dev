@@ -186,6 +186,24 @@ router.get('/userByID/:id' , (req , res)=>{
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
 });
 
+/* Get user by googleId and get offers books*/
+router.get('/userByGoogleID/:id' , (req , res)=>{
+    var userProfile = {};
+    console.log('Get userByGoogleID');
+    userModel.find(googleId : req.params.id)
+    .then(user=>{
+        userProfile.user = user;
+        console.log(userProfile);
+        bookModel.find({categories : {$in: userProfile.user.categories}})
+        .then(books=>{
+            console.log(books);
+            userProfile.offerdBooks = books;
+            console.log(userProfile);
+            res.status(200).json(userProfile);
+        });
+    })
+    .catch((err) => res.status(500).send(`there was problem find user ${err}`));
+});
 /* Update categories that user like*/
 router.post('/updateProfileBooksCategoriesAdd' , (req , res)=>{
     console.log('POST request: /updateProfileBooksCategories');
