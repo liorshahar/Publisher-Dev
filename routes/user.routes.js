@@ -190,7 +190,7 @@ router.get('/userByID/:id' , (req , res)=>{
 router.get('/userByGoogleID/:id' , (req , res)=>{
     var userProfile = {};
     console.log('Get userByGoogleID');
-    userModel.find(googleId : req.params.id)
+    userModel.find({googleId : req.params.id})
     .then(user=>{
         userProfile.user = user;
         console.log(userProfile);
