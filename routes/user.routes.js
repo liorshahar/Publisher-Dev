@@ -190,7 +190,7 @@ router.get('/userByID/:id' , (req , res)=>{
 router.get('/userByGoogleID/:id' , (req , res)=>{
     var userProfile = {};
     console.log('Get userByGoogleID');
-    userModel.find({googleId : req.params.id})
+    userModel.findOne({googleId : req.params.id})
     .then(user=>{
         userProfile.user = user;
         console.log(userProfile);
@@ -199,7 +199,7 @@ router.get('/userByGoogleID/:id' , (req , res)=>{
             console.log(books);
             userProfile.offerdBooks = books;
             console.log(userProfile);
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept").status(200).json(userProfile);
+            res.status(200).json(userProfile);
         });
     })
     .catch((err) => res.status(500).send(`there was problem find user ${err}`));
